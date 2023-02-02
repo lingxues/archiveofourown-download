@@ -1,10 +1,9 @@
-# 单章节爬虫，爬取多章节只能爬取第一章
+# 多章节爬虫，爬取单章节报错
 import requests
 import time
 import sys
 import random
 from bs4 import BeautifulSoup
-import os
 # 可以修改代理地址 不使用就删掉
 proxies = {
     "http": "http://127.0.0.1:10809",
@@ -35,9 +34,7 @@ if soup.find("a", rel="author").text:
     author = soup.find("a", rel="author").text
 else:
     author = soup.find("h3", class_="author").text
-
 chapters = soup.find_all('div', id=lambda x: x and x.startswith('chapter-'))
-
 with open(title + '-' + author + '.txt', 'w', encoding='utf-8') as f:
     for chapter in chapters:
         f.write(title + '\n')
